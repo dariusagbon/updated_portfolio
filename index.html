@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darius Agbon — Virtual Assistant & Programmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #0E0E0E;
+    --accent: #C8A96E;
+    --muted: #6B6560;
+    --card-bg: #FDFAF4;
+    --border: #E2DAC8;
+    --hover: #1A1A1A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 5rem 5rem;
+    position: relative;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 2rem;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.9;
+    max-width: 460px;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--dark);
+    color: var(--cream);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    color: var(--dark);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--dark);
+    color: var(--dark);
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: var(--dark);
+    color: var(--cream);
+  }
+
+  /* Hero right — decorative */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 5rem 5rem 5rem 3rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-photo-frame {
+    position: relative;
+    width: 340px;
+    height: 420px;
+  }
+
+  .hero-photo-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #D4B896 0%, #8B7355 100%);
+    transform: rotate(4deg);
+    border-radius: 2px;
+  }
+
+  .hero-photo-inner {
+    position: absolute;
+    inset: 0;
+    background: var(--dark);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 900;
+    color: rgba(200, 169, 110, 0.25);
+    letter-spacing: -0.05em;
+    user-select: none;
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--accent);
+    color: var(--dark);
+    padding: 1rem 1.3rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    z-index: 2;
+  }
+
+  .hero-line {
+    position: absolute;
+    bottom: 30px;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.4;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .hero-line::before {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--dark);
+  }
+
+  /* ── SCROLL TICKER ── */
+  .ticker {
+    background: var(--dark);
+    color: var(--accent);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker 20s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0 2.5rem;
+  }
+
+  .ticker-sep { color: rgba(200, 169, 110, 0.4); }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 7rem 5rem;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── ABOUT / SUMMARY ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 6rem;
+    align-items: start;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .stat-box {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .stat-box:hover { border-color: var(--accent); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .about-text p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .contact-item a {
+    color: var(--dark);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-item a:hover { color: var(--accent); }
+
+  .contact-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--dark);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { border-bottom: 1px solid var(--border); }
+
+  .exp-grid { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .exp-item:hover { background: rgba(200, 169, 110, 0.03); }
+
+  .exp-meta { padding-top: 0.3rem; }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .exp-duties {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .exp-duties li {
+    font-size: 0.82rem;
+    color: #555;
+    line-height: 1.7;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .exp-duties li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills {
+    background: var(--dark);
+    color: var(--cream);
+    border-bottom: 1px solid #222;
+  }
+
+  #skills .section-label { color: var(--accent); }
+  #skills .section-heading { color: var(--cream); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: #1A1A1A;
+    border: 1.5px solid #1A1A1A;
+  }
+
+  .skill-card {
+    background: var(--dark);
+    padding: 2rem 2rem;
+    position: relative;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .skill-card:hover { background: #111; }
+
+  .skill-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-bar-bg {
+    height: 2px;
+    background: #2A2A2A;
+    margin-top: 1rem;
+    position: relative;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    position: relative;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 0;
+  }
+
+  .skill-bar-fill.animated { width: var(--w); }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { border-bottom: 1px solid var(--border); }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .cert-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem 2.5rem;
+    background: var(--card-bg);
+    position: relative;
+    transition: transform 0.25s, border-color 0.25s;
+    overflow: hidden;
+  }
+
+  .cert-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .cert-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .cert-card:hover::before { transform: scaleX(1); }
+
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .cert-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .cert-meta {
+    font-size: 0.72rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .cert-badge {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    background: var(--dark);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  /* ── EDUCATION ── */
+  #education {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .edu-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .edu-info { }
+
+  .edu-school {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    line-height: 1.2;
+  }
+
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .edu-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    background: var(--cream);
+    position: relative;
+  }
+
+  .edu-card p {
+    font-size: 0.82rem;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  /* ── AVAILABILITY ── */
+  #availability {
+    text-align: center;
+    background: var(--dark);
+    color: var(--cream);
+    padding: 6rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #availability::before {
+    content: 'OPEN';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 18rem;
+    font-weight: 900;
+    color: rgba(200, 169, 110, 0.05);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  #availability .section-label { justify-content: center; color: var(--accent); }
+  #availability .section-label::after { display: none; }
+
+  .avail-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .avail-heading em { color: var(--accent); font-style: italic; }
+
+  .avail-sub {
+    font-size: 0.82rem;
+    color: rgba(245, 240, 232, 0.6);
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .avail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .avail-tag {
+    border: 1px solid rgba(200, 169, 110, 0.4);
+    color: var(--accent);
+    padding: 0.5rem 1.2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    color: rgba(245, 240, 232, 0.4);
+    padding: 2rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    border-top: 1px solid #1A1A1A;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    section { padding: 5rem 2rem; }
+    #about { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 1rem; }
+    .edu-block { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">D<span>.</span>Agbon</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Available for Work · Remote</div>
+    <h1 class="hero-name">Darius<br><em>Agbon</em></h1>
+    <p class="hero-title">Virtual Assistant / Programmer</p>
+    <p class="hero-desc">
+      Creative and user-focused professional with proven experience in Java and Python development, virtual assistance, and digital operations. Skilled in crafting seamless digital experiences through efficient coding, data analysis, and process automation.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">View Work</a>
+      <a href="#availability" class="btn btn-outline">Hire Me</a>
+    </div>
+    <div class="hero-line">Davao City, Philippines</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-frame">
+      <div class="hero-photo-bg"></div>
+      <div class="hero-photo-inner">
+        <div class="hero-initials"><img src="profile.png" alt="Darius Agbon"></div>
+      </div>
+      <div class="hero-badge">
+        IT Specialist<br>Certified
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Java Development <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Python Programming <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Virtual Assistance <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Database Management <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Social Media Management <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Web Development <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Laravel & PHP <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Product Research <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">HTML & CSS Certified <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Java Development <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Python Programming <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Virtual Assistance <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Database Management <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Social Media Management <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Web Development <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Laravel & PHP <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Product Research <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">HTML & CSS Certified <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <div class="section-label fade-up">01 — Profile</div>
+    <h2 class="section-heading fade-up">About<br>Me</h2>
+    <div class="about-stats fade-up">
+      <div class="stat-box">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">IT Certifications</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Roles Held</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Tech Skills</div>
+      </div>
+    </div>
+    <div class="contact-row fade-up" style="margin-top: 2rem;">
+      <div class="contact-item">
+        <div class="contact-icon">☏</div>
+        <span>0963065397 27</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">@</div>
+        <a href="mailto:dariusjayagbon@gmail.com">dariusjayagbon@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⌖</div>
+        <span>Davao City, Philippines</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">↗</div>
+        <a href="#">Github Profile</a>
+      </div>
+    </div>
+  </div>
+  <div class="about-text fade-up">
+    <div class="section-label">Professional Summary</div>
+    <p>
+      Creative and user-focused professional with proven experience in Java and Python development, virtual assistance, and digital operations. Skilled in crafting seamless digital experiences through efficient coding, data analysis, and process automation.
+    </p>
+    <p>
+      Excellent English communication skills with a strong commitment to quality and adaptability. Proficient with WordPress, Salesforce, operating systems, WordPress, and website development.
+    </p>
+    <p>
+      Availability: Open to remote work for small to medium-sized companies and startups. Available for both Part-time and Full-time roles. Schedule flexible — willing to work PST hours (7am–5pm Pacific Time).
+    </p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label fade-up">02 — Work History</div>
+  <h2 class="section-heading fade-up">Experience</h2>
+
+  <div class="exp-grid">
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <div class="exp-period">2024 – 2025</div>
+        <div class="exp-company">University of Mindanao</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Intern Programmer</div>
+        <ul class="exp-duties">
+          <li>Designed and implemented core applications using Java, featuring lambda expressions and Streams API to enhance code reusability and efficiency.</li>
+          <li>Worked with JDBC to connect Java applications to relational databases, designing efficient SQL queries and database schemas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <div class="exp-period">Prior Role</div>
+        <div class="exp-company">Shoky-Shoe Company</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Social Media Manager</div>
+        <ul class="exp-duties">
+          <li>Collaborated with the design team to produce visually engaging graphics, videos, and multimedia content, enhancing brand visibility.</li>
+          <li>Stayed up-to-date with social media trends, algorithms, and platform changes to adapt strategies accordingly and maintain competitiveness.</li>
+          <li>Monitored and analyzed social media metrics using tools like Google Analytics, Hootsuite, and Sprout Social, providing actionable insights that improved content performance and audience growth.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <div class="exp-period">Ongoing</div>
+        <div class="exp-company">E-commerce / Freelance</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Product Researcher</div>
+        <ul class="exp-duties">
+          <li>Searching profitable products using Seller AMP SAS and Keepa, making as much research as possible on the site to find good leads using reverse searching and other methods.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label fade-up">03 — Expertise</div>
+  <h2 class="section-heading fade-up">Skills &amp;<br>Technologies</h2>
+  <div class="skills-grid">
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Programming</div>
+      <div class="skill-name">Java</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 80%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Programming</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 75%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Web Development</div>
+      <div class="skill-name">HTML &amp; CSS</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 90%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Backend</div>
+      <div class="skill-name">PHP / Laravel</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 70%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Data</div>
+      <div class="skill-name">Database Specialist</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 85%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Research</div>
+      <div class="skill-name">Product Research</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 88%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Finance</div>
+      <div class="skill-name">Basic Accounting</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 65%"></div></div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-cat">Social</div>
+      <div class="skill-name">Social Media Mgmt</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w: 82%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label fade-up">04 — Credentials</div>
+  <h2 class="section-heading fade-up">Certifications</h2>
+  <div class="cert-grid">
+    <div class="cert-card fade-up">
+      <div class="cert-badge">✦</div>
+      <div class="cert-issuer">Certiport · CertNexus · Pearson VUE</div>
+      <div class="cert-title">HTML and CSS</div>
+      <p style="font-size:0.8rem;color:#666;line-height:1.7;">Information Technology Specialist certification validating proficiency in front-end web technologies.</p>
+      <div class="cert-meta">
+        <span>Awarded: May 18, 2026</span>
+        <span>ID: 42Q8-XM3V</span>
+        <span>Expires: 5 years after date of issue</span>
+        <span>Verify: verify.certiport.com</span>
+      </div>
+    </div>
+    <div class="cert-card fade-up">
+      <div class="cert-badge">✦</div>
+      <div class="cert-issuer">Certiport · CertNexus · Pearson VUE</div>
+      <div class="cert-title">Databases</div>
+      <p style="font-size:0.8rem;color:#666;line-height:1.7;">Information Technology Specialist certification demonstrating expertise in relational database design and management.</p>
+      <div class="cert-meta">
+        <span>Awarded: May 14, 2026</span>
+        <span>ID: hTN3-4wUQ</span>
+        <span>Expires: 5 years after date of issue</span>
+        <span>Verify: verify.certiport.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label fade-up">05 — Academic</div>
+  <h2 class="section-heading fade-up">Education</h2>
+  <div class="edu-block">
+    <div class="edu-info fade-up">
+      <div class="edu-school">University of Mindanao</div>
+      <div class="edu-degree">Bachelor of Science in Information Technology</div>
+      <div class="edu-period">2024 – 2025</div>
+    </div>
+    <div class="edu-card fade-up">
+      <p>
+        Pursuing a rigorous Information Technology curriculum at one of Mindanao's leading universities, gaining hands-on experience with Java programming, database systems, web development technologies, and software engineering principles through both academic study and real-world internship experience.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- AVAILABILITY -->
+<section id="availability">
+  <div class="section-label">06 — Let's Work</div>
+  <h2 class="avail-heading">Let's Build<br><em>Something</em></h2>
+  <p class="avail-sub">Open to remote opportunities. Available for Part-time and Full-time roles with flexible scheduling to accommodate PST hours (7am–5pm Pacific Time).</p>
+  <div class="avail-tags">
+    <div class="avail-tag">Remote Work</div>
+    <div class="avail-tag">Part-time</div>
+    <div class="avail-tag">Full-time</div>
+    <div class="avail-tag">PST Friendly</div>
+    <div class="avail-tag">Open to Startups</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Darius Jay Agbon · Davao City, Philippines</span>
+  <span>Designed with intention · <a href="mailto:dariusjayagbon@gmail.com">dariusjayagbon@gmail.com</a></span>
+</footer>
+
+<script>
+  // Intersection observer for fade-up elements
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Animate skill bars when visible
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          setTimeout(() => bar.classList.add('animated'), 200);
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelector('.skills-grid') && barObserver.observe(document.querySelector('.skills-grid'));
+</script>
+</body>
+</html>
